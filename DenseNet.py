@@ -26,10 +26,7 @@ class DenseNet(nn.Module):
         # value is initialized to 'preprocess_outmaps'
         innerChanns = preprocess_outmaps
         
-        # check if number of dense blocks to be built is more than 1 and if if is only
-        # one addapt the size of 'list_length' accordingly
-        list_length = len(nLayers) - 1 if (len(nLayers) - 1) > 0 else 1
-        for indx in range(list_length): # we skip here the creation of the last dense block ....
+        for indx in range(len(nLayers) - 1): # we skip here the creation of the last dense block ....
                 
             # build a dense block with the number of layers according
             # to the index 'indx' of the 'nLayers' list
@@ -41,26 +38,21 @@ class DenseNet(nn.Module):
             # add the just built dense block to the main sequential module (i.e. densenet)
             self.densenet.add_module('DN_block{}'.format(indx), locals()['DenseBlock_{}'.format(indx)])
             
-            # if there is only 1 dense block to be built, then it makes no sense to add 
-            # a transition layer after it
-            if list_length > 1:
-                """ We use (...) transition layers between two contiguous dense blocsk """
-                # add a transition layer right after a dense block - do not forget to explicitly add the compression factor argument!
-                self.densenet.add_module('TransitionLayer_{}'.format(indx), self.__Transition_layer(innerChanns, compression_factor))
-                # update the number of input feature maps of the next Dense Block
-                innerChanns = int(innerChanns * compression_factor)
+            """ We use (...) transition layers between two contiguous dense blocsk """
+            # add a transition layer right after a dense block - do not forget to explicitly add the compression factor argument!
+            self.densenet.add_module('TransitionLayer_{}'.format(indx), self.__Transition_layer(innerChanns, compression_factor))
+            # update the number of input feature maps of the next Dense Block
+            innerChanns = int(innerChanns * compression_factor)
 
-        # if the number of dense blocks to build is more than 1 ...
-        if list_length > 1:
-            # create and add the last dense block. This last dense block was previously left aside because
-            # after this last dense block comes no transition layer. Instead a global average pooling
-            # takes place together with a fully connected network performing a softmax classifier.
-            locals()['DenseBlock_{}'.format(len(nLayers) - 1)] = nn.Sequential()
-            for f in range( nLayers[len(nLayers) - 1] ):
-                locals()['DenseBlock_{}'.format(len(nLayers) - 1)].add_module('H{}'.format(f), layer(innerChanns, k))
-                innerChanns += k
-            # add the just built dense block to the main sequential module (i.e. densenet)
-            self.densenet.add_module('DN_block{}'.format(len(nLayers) - 1), locals()['DenseBlock_{}'.format(len(nLayers) - 1)])
+        # create and add the last dense block. This last dense block was previously left aside because
+        # after this last dense block comes no transition layer. Instead a global average pooling
+        # takes place together with a fully connected network performing a softmax classifier.
+        locals()['DenseBlock_{}'.format(len(nLayers) - 1)] = nn.Sequential()
+        for f in range( nLayers[len(nLayers) - 1] ):
+            locals()['DenseBlock_{}'.format(len(nLayers) - 1)].add_module('H{}'.format(f), layer(innerChanns, k))
+            innerChanns += k
+        # add the just built dense block to the main sequential module (i.e. densenet)
+        self.densenet.add_module('DN_block{}'.format(len(nLayers) - 1), locals()['DenseBlock_{}'.format(len(nLayers) - 1)])
 
         """ At the end of the last dense block, a global average pooling is performed
             and then a softmax classifier is attached. """
