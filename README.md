@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://arxiv.org/abs/1608.06993" rel="noopener">
- <img width=200px height=200px src="./densenet-arch.png" alt="DenseNet architecture image"></a>
+ <img width=350px height=320px src="./densenet-arch.png" alt="DenseNet architecture image"></a>
 </p>
 
 <h3 align="center">DenseNet - my implementation</h3>
