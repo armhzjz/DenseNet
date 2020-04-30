@@ -8,7 +8,7 @@
 
 ---
 
-<p align="center"> This is my own implementation of the [DenseNet](https://arxiv.org/abs/1608.06993). I tried to make this implementation as close to the paper as my understanding allowed me. Please leave a comment and or suggestions (raise an issue)!
+<p align="center"> This is my own implementation of the <a href="https://arxiv.org/abs/1608.06993" rel="noopener">DenseNet</a>. I tried to make this implementation as close to the paper as my understanding allowed me. Please leave a comment and or suggestions (raise an issue)!
     <br> 
 </p>
 
