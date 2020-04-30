@@ -39,4 +39,4 @@ Any hint or advice on how this could be improved are welcome!
 
 ## Acknowledgements <a name = "acknowledgement"></a>
 
-While implementing my DenseNet solution I stumble upon [this other DenseNet](https://github.com/weiaicunzai/pytorch-cifar100) implementation from [@weiaicunzai](https://github.com/weiaicunzai). Even though my implmentation was almost finish and very alike, it was useful to have another reference apart from the paper.
+While implementing my DenseNet solution I stumble upon [this other DenseNet](https://github.com/weiaicunzai/pytorch-cifar100) implementation from [@weiaicunzai](https://github.com/weiaicunzai). Even though my implmentation was almost finish (and very alike I must admit), it was useful to have another reference apart from the paper.
