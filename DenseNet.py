@@ -11,15 +11,15 @@ class DenseNet(nn.Module):
         super(DenseNet, self).__init__()
         
         # validate parameters...
-        nLayers, layer = self.__Validate_params(nLayers, tlayer)
+        nLayers, layer, self.compression_factor = self.__Validate_params(nLayers, tlayer, compression_factor)
 
         # create the main sequentail module
         self.densenet = nn.Sequential()
 
         # Before entering the first dense block, a convolution with 16 (or twice the growth rate for DenseNet-BC)
         # ouput channels is performed on the input images.
-        preprocess_outmaps = 2 * k if (layer is self.__Bottleneck and compression_factor < 1.) else 16
-        self.densenet.add_module("preprocessInput", nn.Conv2d(3, preprocess_outmaps, kernel_size=1, stride=1, padding=0, bias=True))
+        preprocess_outmaps = 2 * k if (layer is self.__Bottleneck and self.compression_factor < 1.) else 16
+        self.densenet.add_module("preprocessInput", nn.Conv2d(3, preprocess_outmaps, kernel_size=3, stride=1, padding=1, padding_mode='zeros', bias=True))
 
         # create the dense blocks according to the size of the 'nLayers' list
         # I define - for clarity/readability reasons - a 'innerChanns' variable whose 
@@ -40,9 +40,9 @@ class DenseNet(nn.Module):
             
             """ We use (...) transition layers between two contiguous dense blocsk """
             # add a transition layer right after a dense block - do not forget to explicitly add the compression factor argument!
-            self.densenet.add_module('TransitionLayer_{}'.format(indx), self.__Transition_layer(innerChanns, compression_factor))
+            self.densenet.add_module('TransitionLayer_{}'.format(indx), self.__Transition_layer(innerChanns, self.compression_factor))
             # update the number of input feature maps of the next Dense Block
-            innerChanns = int(innerChanns * compression_factor)
+            innerChanns = int(innerChanns * self.compression_factor)
 
         # create and add the last dense block. This last dense block was previously left aside because
         # after this last dense block comes no transition layer. Instead a global average pooling
@@ -58,8 +58,16 @@ class DenseNet(nn.Module):
             and then a softmax classifier is attached. """
         # With adaptive pooling the output can be reduced to any feature map size,
         # although in practice it is often choosen size 1, in which case
-        # it does the same thing as global pooling.
-        self.densenet.add_module('GlobAvgPooling', nn.AdaptiveMaxPool2d(1))
+        # it does the same thing as global pooling
+        # - but first a batch and relu layer (I included this two layers after checking the implementation 
+        # I refer to at the begining of this notebook. I checked the evaluation loss without these layer (first)
+        # and with these layers (after) and it works best with them.
+        preSoftmax_layer = nn.Sequential(
+            nn.BatchNorm2d(innerChanns),
+            nn.ReLU(inplace=True),
+            nn.AdaptiveMaxPool2d(1)
+        )
+        self.densenet.add_module('preSoftmax_layer', preSoftmax_layer)
         
         # a linear transformation is used here as a Softmax layer. 
         self.fakeSoftmax = nn.Linear(innerChanns, nClasses, bias=True)
@@ -150,7 +158,7 @@ class DenseNet(nn.Module):
                 nn.Conv2d(chann_in, 4 * growth_rate, kernel_size=1, stride=1, padding=0, bias=True),
                 nn.BatchNorm2d(4 * growth_rate),
                 nn.ReLU(inplace=True),
-                nn.Conv2d(chann_in, growth_rate, kernel_size=3, stride=1, padding=1,
+                nn.Conv2d(4 * growth_rate, growth_rate, kernel_size=3, stride=1, padding=1,
                         padding_mode='zeros', bias=True)
             )
             
@@ -180,15 +188,24 @@ class DenseNet(nn.Module):
             return torch.cat([x, self.h(x)], 1)
         
         
-    def __Validate_params(self, nLayers, tlayer):
+    def __Validate_params(self, nLayers, tlayer, compression_factor):
         # validate the parameters given to the main class creator, to
         # ensure a minimum degree of sane functionality
-        
+
         # check for the type of layer to be used....
         if tlayer == "Bottleneck" or tlayer is None:
             layer = DenseNet.__Bottleneck
+            # save the compression factor value - needed to further build the network
+            real_compression_factor = compression_factor
         elif tlayer == "H_layer":
             layer = DenseNet.__H_layer
+            # save the compression factor value - needed to further build the network
+            if compression_factor < 1:
+                print("Compression factor smaller than 1.0 is exclusive of DenseNet BC.")
+                print("Compression factor has been set to 1.0")
+                real_compression_factor = 1.0
+            else:
+                real_compression_factor = compression_factor
         else:
             print("Layer type not supported in DenseNet.")
             print("Must be either 'Bottleneck' of 'H_layer'")
@@ -209,7 +226,7 @@ class DenseNet(nn.Module):
             print("will be created as elements on the list.")
             sys.exit(1)
         
-        return nLayers, layer
+        return nLayers, layer, real_compression_factor
 
 
 
