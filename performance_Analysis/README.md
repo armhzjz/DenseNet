@@ -1,4 +1,4 @@
-# Analysis conclusion
+# Comparison conclusion
 
 ### Cifar-10 sample images
 <p align="center">
