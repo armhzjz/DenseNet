@@ -21,7 +21,8 @@
 ## About <a name = "about"></a>
 
 After reading the [DenseNet paper](https://arxiv.org/abs/1608.06993) I was very surprised for it being so simple and yet so powerfull. So I decided to make my own implementation of it and give it a try.<br>
-I used [this Cifar-10 datase](https://www.kaggle.com/emadtolba/cifar10-comp) from kaggle to test the performance of my implementation. For that purpose, I trained a total of 4 DenseNet networks to the data; 2 of them were BC variants and the other to were none BC networks. The quick analysis I did on these four networks can be found in [this jupyter notebook](performance_Analysis/Cifar-10_performanceTest.ipynb).
+I used [this Cifar-10 datase](https://www.kaggle.com/emadtolba/cifar10-comp) from kaggle to test the performance of my implementation. For that purpose, I trained a total of 4 DenseNet networks to the data; 2 of them were BC variants and the other to were none BC networks. The quick comparison I did on these four networks can be found in [this jupyter notebook](performance_Analysis/Cifar-10_performanceTest.ipynb).<br>
+<br>Additionally, a [kaggle kernel is found in here](https://www.kaggle.com/ahernandez1/mydensenet-implementation) in case the reader is interested in a cifar-10 evaluation (i.e. not only a rough comparison as the one provided in this repository).
 
 ## Authors <a name = "authors"></a>
 
