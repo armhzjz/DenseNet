@@ -5,7 +5,7 @@ import torch.nn as nn
 
 
 
-def TrainModel(model, criterion, optimizer, nEpochs, train_stats, bestModelName = None, lr_update_at_Epoch_perc=0.20, minLr_val_at_Epoch_perc=0.9,
+def TrainModel(model, criterion, optimizer, nEpochs, train_stats=None, bestModelName=None, lr_update_at_Epoch_perc=0.20, minLr_val_at_Epoch_perc=0.9,
                train_loader=None, valid_loader=None):
 
     if train_loader is None or valid_loader is None:
@@ -136,16 +136,18 @@ def TrainModel(model, criterion, optimizer, nEpochs, train_stats, bestModelName 
                 
             valid_loss_min = valid_loss
 
-        train_stats = train_stats.append({
-            'Epoch' : epoch,
-            'Time per epoch' : time_elapsed,
-            'Avg time per step' : time_elapsed / len(train_loader.sampler),
-            'Train loss' : train_loss,
-            'Train accuracy' : train_accuracy / len(train_loader),
-            'Train top-3 accuracy' : top3_train_accuracy / len(train_loader),
-            'Validation loss' : valid_loss,
-            'Validation accuracy' : validation_accuracy / len(valid_loader),
-            'Validation top-3 accuracy' : top3_validation_accuracy / len(valid_loader)
-        }, ignore_index=True)
+        if train_stats is not None:
+            train_stats = train_stats.append({
+                'Epoch' : epoch,
+                'Time per epoch' : time_elapsed,
+                'Avg time per step' : time_elapsed / len(train_loader.sampler),
+                'Train loss' : train_loss,
+                'Train accuracy' : train_accuracy / len(train_loader),
+                'Train top-3 accuracy' : top3_train_accuracy / len(train_loader),
+                'Validation loss' : valid_loss,
+                'Validation accuracy' : validation_accuracy / len(valid_loader),
+                'Validation top-3 accuracy' : top3_validation_accuracy / len(valid_loader)
+            }, ignore_index=True)
         
+    # either returns None or returns the train_stats list
     return train_stats
