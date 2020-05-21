@@ -9,11 +9,13 @@ import Training
 
 
 class DenseNet(nn.Module):
-    def __init__(self, nLayers, tlayer="Bottleneck", k=32, compression_factor=0.5, nClasses=100):
+    def __init__(self, nLayers, tlayer="Bottleneck", k=32, compression_factor=0.5, nClasses=100, default_trainer=True):
         super(DenseNet, self).__init__()
         
         # validate parameters...
         nLayers, layer, self.compression_factor = self.__Validate_params(nLayers, tlayer, compression_factor)
+        # add a function pointer to the package's default training method if required
+        self.trainMe = Training.TrainModel if default_trainer else lambda: print("This instance doesn't use a default trainer")
 
         # create the main sequentail module
         self.densenet = nn.Sequential()
@@ -77,9 +79,6 @@ class DenseNet(nn.Module):
         # initialize all weights and biases
         self.densenet.apply(self.__InitW_uniCenter)
         self.fakeSoftmax.apply(self.__InitW_uniCenter)
-
-        # add a function pointer to the package's default training method
-        self.trainMe = Training.TrainModel
         
         
     def forward(self, x):
