@@ -6,12 +6,18 @@ import tarfile
 import pickle
 import torch
 
+import numpy as np
+
 from torch import Tensor
 
 
 cifar_dataset_path = "./cifar_dataset/"
 
-def getCifar10Dataset():
+def getCifar10Dataset(path=None):
+    if path is not None:
+        global cifar_dataset_path
+        cifar_dataset_path = path
+
     # constants
     cifar_10_url = "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
     tarfile_name = 'cifar-10.tar.gz'
@@ -46,7 +52,6 @@ def getCifar10Dataset():
     files = os.listdir(dir_to_batches)
 
     for f in files:
-
         shutil.move(dir_to_batches+f, cifar_dataset_path)
 
     try:
@@ -69,21 +74,28 @@ def unpickle(file):
     return dict
 
 
-def getTrainDataset(path=None):
-    if path is not None:
-        global cifar_dataset_path
-        cifar_dataset_path = path
+def getTrainDatasets():
+    # create an empty tensor that it's going to be used to concatenate
+    # on it all the training images
+    train_images = torch.zeros(0,3,32,32)
+    train_labels = np.array([], dtype=int)
+    for i in range(1,6):
+        # unpickle the 'data_batch'.py in turn
+        # and convert it to a torch.Tensor
+        dicc = unpickle(cifar_dataset_path + 'data_batch_{}'.format(i))
+        # the dicc list has a shape of (10000,3072), so it needs to be reshaped
+        dict_tensor = torch.Tensor(dicc[b'data']).view(10000,3,32,32)
+        train_images = torch.cat((train_images, dict_tensor), dim=0)
+        train_labels = np.concatenate((train_labels, dicc[b'labels']), axis=0)
+    
+    return train_images, train_labels
 
-    # download the cifar10 dataset
-    getCifar10Dataset()
 
-    # create the tensor we will return
-    #train_images = Tensor()
-    images_list = [[[Tensor(x).view(3,32,32) for x in dicc[b'data']] for dicc in \
-                    unpickle(cifar_dataset_path + 'data_batch_{}'.format(i))] for i in range(1,6)]
-    # for i in range(1,6):
-    #     dicc = unpickle(cifar_dataset_path + 'data_batch_{}'.format(i))
-    #     images_list.append([x for x in dicc[b'data']])
-    #     #train_images = torch.cat([train_images, [Tensor(x).view(3,32,32) for x in dicc[b'data']]], 0)
+def getTestDataset():
+         
+    # now unpickle the test batch and process it as it was done for a training batch
+    tdicc = unpickle(cifar_dataset_path + 'test_batch')
+    test_images = torch.Tensor(tdicc[b'data']).view(10000,3,32,32)
+    test_labels = np.array(tdicc[b'labels'])
 
-    return images_list
+    return test_images, test_labels
