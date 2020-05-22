@@ -4,8 +4,11 @@ import requests
 import traceback
 import tarfile
 import pickle
+import torch
 
 import numpy as np
+
+from torch.utils.data import Dataset, DataLoader
 
 
 cifar_dataset_path = "./cifar_dataset/"
@@ -93,3 +96,29 @@ def getTestDataset():
     test_labels = np.array(tdicc[b'labels'])
 
     return test_images, test_labels
+
+
+# CifarDataset is a class that construct a dataset out of training images
+# stored as numpy arrays and its corresponding training labels - also
+# stored as numpy arrays
+# This CifarDataset class serves also to provide testing images converted
+# Tensors in a way that they can be provided via a DataLoader
+class CifarDataset(Dataset):
+    def __init__(self, data, target=None, transform=None):
+        self.data = data
+        self.target = target if target is None else torch.from_numpy(target).long()
+        self.transform = transform
+        
+    def __getitem__(self, index):
+        x = self.data[index] 
+        y = self.target[index] if self.target is not None else ""
+        if self.transform:
+            x = self.transform(x)
+        
+        if self.target is None:
+            return x
+        else:
+            return x, y
+    
+    def __len__(self):
+        return len(self.data)
