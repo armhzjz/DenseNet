@@ -2,8 +2,8 @@ import sys
 import torch
 import numpy as np
 import torch.nn as nn
-import Layers as lyr
-import Training
+from DenseNet import Layers as lyr
+from DenseNet import Training
 
 
 

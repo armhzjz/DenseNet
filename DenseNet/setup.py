@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="DenseNet-armhzjz",
-    version="0.1.0",
+    version="0.1.1",
     author="Armando Hernandez",
     author_email="armhzjz@pm.me",
     description="A DenseNet implementation",
