@@ -16,17 +16,17 @@
 
 - [About](#about)
 - [Contents](#content)
+- [How to use the test script](#scriptUssage)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
 ## About <a name = "about"></a>
 
 After reading the [DenseNet paper](https://arxiv.org/abs/1608.06993) I was very surprised for it being so simple and yet so powerfull. So I decided to make my own implementation of it and give it a try.<br>
-This implementation of DenseNet was done under python version 3.6.10.
 
 I used [this Cifar-10 datase](https://www.kaggle.com/emadtolba/cifar10-comp) from kaggle to test the performance of my implementation. For that purpose, I trained a total of 4 DenseNet networks to the data; 2 of them were BC variants and the other to were none BC networks. The quick comparison I did on these four networks can be found in [this jupyter notebook](performance_Analysis/Cifar-10_performanceTest.ipynb).
 
-A test script may be found [here](https://github.com/armhzjz/DenseNet/tree/master/tests/Cifar-10). I used this test sctipt to ensure the implementation works also out of the context of kaggle notebooks. It downloads the Cifar-10 dataset directly from its official webpage, prepares the training, validation and test data sets, trains a DenseNet model and evaluates it using the best parameters produced during its training. The execution of this script will take a considerable amount of time depending on the GPU hardware you use, so beware of this and don't get puzzled if it seems to take forever until the script is completely executed.
+A test script may be found [here](https://github.com/armhzjz/DenseNet/tree/master/tests/Cifar-10). I used this test script to ensure the implementation works also out of the context of kaggle notebooks (in case you want to try the script see [here](#scriptUssage)). It downloads the Cifar-10 dataset directly from its official webpage, prepares the training, validation and test data sets, trains a DenseNet model and evaluates it using the best parameters produced during its training. The execution of this script will take a considerable amount of time depending on the GPU hardware you use, so beware of this and don't get puzzled if it seems to take forever until the script is completely executed.
 
 <br>Finally, a [kaggle kernel is found in here](https://www.kaggle.com/ahernandez1/mydensenet-implementation) in case the reader is interested in a cifar-10 evaluation (i.e. not only a rough comparison as the one provided in this repository).
 
@@ -35,6 +35,20 @@ A test script may be found [here](https://github.com/armhzjz/DenseNet/tree/maste
 * [DenseNet implementation as a Package](https://github.com/armhzjz/DenseNet/tree/master/DenseNet)
 * [Quick performance analysis of different DenseNet networks on the Cifar-10 dataset](https://github.com/armhzjz/DenseNet/tree/master/performance_Analysis)
 * [Cifar-10 training script (script used as test)](https://github.com/armhzjz/DenseNet/tree/master/tests/Cifar-10)
+
+## How to use the test script <a name="scriptUssage"></a>
+
+This implementation works for python version 3.6.10.<br>
+Pytorch is also required to be installed.
+The test scripts requires also my DenseNet python package. It can be install via pip as follows:<br>
+
+`pip install DenseNet-armhzjz`
+
+It is recommended to use virtual environments (I personally like to use [Anaconda](https://anaconda.org/)). There is a '[densenet-test.yml](https://github.com/armhzjz/DenseNet/blob/master/tests/Cifar-10/densenet-test.yml)' file provided in this repository that you could use to install a new virtual environment with the packages needed for the test script to run. For example, if you use conda:<br>
+
+`conda env create -f densenet-test.yml`
+
+Once your environment has the DenseNet package and its dependencies you can simply run the script (i.e. `./Cifar-10.py`).
 
 ## Authors <a name = "authors"></a>
 
