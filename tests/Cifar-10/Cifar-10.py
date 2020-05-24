@@ -42,6 +42,12 @@ utils.getCifar10Dataset(cifar10_datdaset_path)
 train_images, train_labels = utils.getTrainDatasets()
 test_images, test_labels = utils.getTestDataset()
 
+# we need to correctly  transpose the numpy arrays, so
+# they can be converted to PIL images later while they are being
+# drawn from the data loaders
+train_images = train_images.transpose([0,2,3,1])
+test_images = test_images.transpose([0,2,3,1])
+
 # define transformations for the training images
 transform = transforms.Compose([
     transforms.ToPILImage(),
