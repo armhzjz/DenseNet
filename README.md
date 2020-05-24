@@ -52,7 +52,7 @@ It is recommended to use virtual environments (I personally like to use [Anacond
 
 Note that this .yml file may specify more packages than the minimum required to run the script (I generated this yml file from the environment I use).
 
-Once your environment has the DenseNet package and its dependencies you can simply run the script (i.e. `./Cifar-10.py`).
+Once your environment has the DenseNet package and its dependencies you can simply run the script (i.e. `python3 Cifar-10.py`).
 
 ## Authors <a name = "authors"></a>
 
