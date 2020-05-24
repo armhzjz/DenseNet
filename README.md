@@ -30,6 +30,8 @@ A test script may be found [here](https://github.com/armhzjz/DenseNet/tree/maste
 
 <br>Finally, a [kaggle kernel is found in here](https://www.kaggle.com/ahernandez1/mydensenet-implementation) in case the reader is interested in a cifar-10 evaluation (i.e. not only a rough comparison as the one provided in this repository).
 
+***:** This DenseNet package can be installed via pip. You may find it [here](https://pypi.org/project/DenseNet-armhzjz/). This wheel package was created for testing purposes of this implementation and it is not likely to be mantained over future versions of python.
+
 ## Content <a name = "content"></a>
 
 * [DenseNet implementation as a Package](https://github.com/armhzjz/DenseNet/tree/master/DenseNet)
