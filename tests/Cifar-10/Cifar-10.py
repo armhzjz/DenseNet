@@ -21,6 +21,10 @@ from torch.utils.data.sampler import SubsetRandomSampler
 #               * create training, validation and testing dataloaders
 # -------------------------------------------------------------------------------------
 
+print("1st. section:")
+print("     Definition of constants, download of Cifar-10 datasets,")
+print("     definition of torch transformations and creation of")
+print("     training, validation and testing dataloaders")
 # some constants...
 cifar10_datdaset_path = './cifar10_dataset/'
 batch_size = 64 # samples per batch
@@ -86,6 +90,10 @@ test_loader  = torch.utils.data.DataLoader(x_test, batch_size=batch_size, num_wo
 #               * train the model
 # -------------------------------------------------------------------------------------
 
+print("2nd. section:")
+print("     Create a DenseNet model, define a function loss")
+print("     and optimizer and train the model")
+
 # create a DenseNet model
 modDN = DenseNet.Models.DenseNet([12,18,16], tlayer='H_layer', k=32, nClasses=10)
 # create a loss function
@@ -105,10 +113,17 @@ modDN.trainMe(modDN, crit, optimizer, nEpochs,
 #   3rd. Section - Evaluate the best parameters gotten during training
 # -------------------------------------------------------------------------------------
 
+print("3rd. section:")
+print("     Creata a new DenseNet model with the same architecture")
+print("     as the last DenseNet model.")
+print("     Load the best parameters produced during training and")
+print("     evaluate them using a completely new image dataset")
+print("     (i.e. the test dataset)")
+
 # empty the GPU cache
 torch.cuda.empty_cache()
 # create a new model with the same architecture as the module used for training
-eval_module = DenseNet([12,18,16], tlayer="H_layer", k=32, nClasses=10)
+eval_module = DenseNet.Models.DenseNet([12,18,16], tlayer="H_layer", k=32, nClasses=10)
 # load the parameters trained
 eval_module.load_state_dict(torch.load('best_modDN_SGD'))
 # set the module for evaluation purposes
