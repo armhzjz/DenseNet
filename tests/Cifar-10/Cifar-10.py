@@ -92,8 +92,13 @@ modDN = DenseNet.Models.DenseNet([12,18,16], tlayer='H_layer', k=32, nClasses=10
 crit = nn.CrossEntropyLoss()
 # and the optimizer ...
 optimizer = optim.SGD(modDN.parameters(), lr=0.01)
-modDN.trainMe(modDN, crit, optimizer, nEpochs, bestModelName='best_modDN_SGD',
-    lr_update_at_Epoch_perc=0.2, minLr_val_at_Epoch_perc=0.4)
+modDN.trainMe(modDN, crit, optimizer, nEpochs,
+                bestModelName='best_modDN_SGD',
+                lr_update_at_Epoch_perc=0.2,
+                minLr_val_at_Epoch_perc=0.4,
+                train_loader=train_loader,
+                valid_loader=valid_loader
+            )
 
 
 # -------------------------------------------------------------------------------------
