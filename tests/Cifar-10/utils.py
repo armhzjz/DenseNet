@@ -83,8 +83,8 @@ def getTrainDatasets():
         # unpickle the 'data_batch'.py in turn
         dicc = unpickle(cifar_dataset_path + 'data_batch_{}'.format(i))
         # the dicc[b'data'] list has a shape of (10000,3072), so it needs to be reshaped
-        train_images = np.concatenate((train_images, dicc[b'data'].reshape((10000,3,32,32))), axis=0)
-        train_labels = np.concatenate((train_labels, dicc[b'labels']), axis=0)
+        train_images = np.concatenate((train_images, dicc[b'data'].reshape((10000,3,32,32))), axis=0).astype('uint8')
+        train_labels = np.concatenate((train_labels, dicc[b'labels']), axis=0).astype('uint8')
     
     return train_images, train_labels
 
@@ -92,8 +92,8 @@ def getTrainDatasets():
 def getTestDataset():
     # now unpickle the test batch and process it as it was done for a training batch
     tdicc = unpickle(cifar_dataset_path + 'test_batch')
-    test_images = tdicc[b'data'].reshape((10000,3,32,32))
-    test_labels = np.array(tdicc[b'labels'])
+    test_images = tdicc[b'data'].reshape((10000,3,32,32)).astype('uint8')
+    test_labels = np.array(tdicc[b'labels']).astype('uint8')
 
     return test_images, test_labels
 
