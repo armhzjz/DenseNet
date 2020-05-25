@@ -18,6 +18,7 @@
 - [Contents](#content)
 - [How to use the test script](#scriptUssage)
 - [Authors](#authors)
+- [ToDo list](#toDo)
 - [Acknowledgments](#acknowledgement)
 
 ## About <a name = "about"></a>
@@ -59,6 +60,12 @@ Once your environment has the DenseNet package and its dependencies you can simp
 - [@armhzjz](https://github.com/armhzjz)
 
 Any hint or advice on how this could be improved are welcome!
+
+## ToDo list <a name = "toDo"></a>
+
+- [ ] Actually test the test script on Cifar-10 to make sure it runs as expected. Document the result of the test.
+- [ ] Document the DenseNet package implementation
+- [ ] Explain briefly the analysis made (in performance_Analysis folder)
 
 ## Acknowledgements <a name = "acknowledgement"></a>
 
