@@ -3,7 +3,7 @@
  <img width=350px height=320px src="./densenet-arch.png" alt="DenseNet architecture image"></a>
 </p>
 
-<h3 align="center">DenseNet - my implementation</h3>
+<h1 align="center">DenseNet - my implementation</h1>
 
 
 ---
