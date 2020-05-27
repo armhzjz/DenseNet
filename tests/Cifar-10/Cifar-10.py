@@ -131,7 +131,7 @@ torch.cuda.empty_cache()
 # create a new model with the same architecture as the module used for training
 eval_module = DenseNet.Models.DenseNet([12,18,16], tlayer="H_layer", k=32, nClasses=10)
 # load the parameters trained
-eval_module.load_state_dict(torch.load('best_modDN_SGD'))
+eval_module.load_state_dict(torch.load('best_modDN_SGD.pt'))
 # set the module for evaluation purposes
 eval_module.eval()
 
