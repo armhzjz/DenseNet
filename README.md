@@ -67,7 +67,7 @@ Any hint or advice on how this could be improved are welcome!
 
 ## ToDo list <a name = "toDo"></a>
 
-- [ ] Actually test the test script on Cifar-10 to make sure it runs as expected. Document the result of the test.
+- [x] Actually test the test script on Cifar-10 to make sure it runs as expected. Document the result of the test.
 - [ ] Document the DenseNet package implementation
 - [ ] Explain briefly the analysis made (in performance_Analysis folder)
 
