@@ -130,27 +130,33 @@ print("     (i.e. the test dataset)")
 torch.cuda.empty_cache()
 # create a new model with the same architecture as the module used for training
 eval_module = DenseNet.Models.DenseNet([12,18,16], tlayer="H_layer", k=32, nClasses=10)
-# load the parameters trained
-eval_module.load_state_dict(torch.load('best_modDN_SGD.pt'))
+train_on_gpu = torch.cuda.is_available()
+if train_on_gpu:
+    print("Evaluaton of model will take place on CUDA!")
+    # load the parameters trained
+    eval_module.load_state_dict(torch.load('best_modDN_SGD.pt'))
+    eval_module.cuda()
+else:
+    eval_module.load_state_dict(torch.load('best_modDN_SGD.pt',map_location=torch.device('cpu')))
 # set the module for evaluation purposes
 eval_module.eval()
 
 # numpy array to hold all the test predictions
 # (i.e. the name of the class an image belongs to)
-class_predictions = np.array([0], dtype=str)
-num_predictions = np.array([0])
+predictions_classes = np.array([], dtype=str)
+predictions_numbers = np.array([])
 
 # draw batches of images from the test loader 
 # until all of them have been drawn
-test_labels = np.array([0]) # labes will be concatenated in this array in the order they are drawn
+test_labels = np.array([]) # labes will be concatenated in this array in the order they are drawn
 for image_batch, labels in test_loader:
     image_batch = image_batch.cuda()
     # get predictions of the classes of the iamges
     # on this batch
     mod_output = eval_module(image_batch)
     _, batch_pred = torch.max(mod_output, 1)
-    num_predictions = np.append(num_predictions, batch_pred)
-    class_predictions = np.append(class_predictions, [classes[x] for x in batch_pred])
+    predictions_numbers = np.append(predictions_numbers, batch_pred.cpu())
+    predictions_classes = np.append(predictions_classes, [classes[x] for x in batch_pred])
 
     test_labels = np.concatenate((test_labels, labels), axis=0)
 
@@ -158,6 +164,7 @@ for image_batch, labels in test_loader:
 torch.cuda.empty_cache()
 
 # print the accuracy gotten
-accuracy = np.mean([[1 if x == 1 else 0] for x in (num_predictions / test_labels)])
+equals = predictions_numbers == test_labels
+accuracy = np.mean(equals)
 
-print("accuracy gotten after training: {:.4f}".format(accuracy))
+print("\nAccuracy gotten after training: {:.4f}".format(accuracy))

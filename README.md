@@ -55,6 +55,10 @@ Note that this .yml file may specify more packages than the minimum required to 
 
 Once your environment has the DenseNet package and its dependencies you can simply run the script (i.e. `python3 Cifar-10.py`).
 
+For instance, I tested this script by running the following command line which produced a 'test_log.log' which you can also find in the [Cifar-10](https://github.com/armhzjz/DenseNet/tree/master/tests/Cifar-10) folder:
+
+`python3 Cifar-10.py > test_log.log`
+
 ## Authors <a name = "authors"></a>
 
 - [@armhzjz](https://github.com/armhzjz)
