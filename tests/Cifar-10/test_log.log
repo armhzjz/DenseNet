@@ -1,0 +1,94 @@
+1st. section:
+     Definition of constants, download of Cifar-10 datasets,
+     definition of torch transformations and creation of
+     training, validation and testing dataloaders
+2nd. section:
+     Create a DenseNet model, define a function loss
+     and optimizer and train the model
+Compression factor smaller than 1.0 is exclusive of DenseNet BC.
+Compression factor has been set to 1.0
+Training on CUDA!
+Epoch: 1 	Training Loss: 2.203982 	Validation Loss: 1.694935 	In seconds: 126.5699
+Validation loss decreased (inf ---> 1.694935). Saving model.
+Epoch: 2 	Training Loss: 1.528312 	Validation Loss: 1.341407 	In seconds: 124.7085
+Validation loss decreased (1.694935 ---> 1.341407). Saving model.
+Epoch: 3 	Training Loss: 1.290589 	Validation Loss: 1.159646 	In seconds: 125.0313
+Validation loss decreased (1.341407 ---> 1.159646). Saving model.
+Epoch: 4 	Training Loss: 1.096509 	Validation Loss: 1.169983 	In seconds: 125.2776
+Epoch: 5 	Training Loss: 0.977609 	Validation Loss: 0.985669 	In seconds: 125.2789
+Validation loss decreased (1.159646 ---> 0.985669). Saving model.
+Epoch: 6 	Training Loss: 0.870481 	Validation Loss: 0.845017 	In seconds: 125.3155
+Validation loss decreased (0.985669 ---> 0.845017). Saving model.
+Epoch: 7 	Training Loss: 0.785266 	Validation Loss: 0.769566 	In seconds: 125.3247
+Validation loss decreased (0.845017 ---> 0.769566). Saving model.
+Epoch: 8 	Training Loss: 0.713991 	Validation Loss: 0.669768 	In seconds: 125.3033
+Validation loss decreased (0.769566 ---> 0.669768). Saving model.
+Epoch: 9 	Training Loss: 0.646290 	Validation Loss: 0.672943 	In seconds: 125.2873
+Learning rate starts to be updated towards a value of 0.001
+Epoch: 10 	Training Loss: 0.594677 	Validation Loss: 0.667148 	In seconds: 127.4365
+Validation loss decreased (0.669768 ---> 0.667148). Saving model.
+Epoch: 11 	Training Loss: 0.555800 	Validation Loss: 0.543532 	In seconds: 125.4072
+Validation loss decreased (0.667148 ---> 0.543532). Saving model.
+Epoch: 12 	Training Loss: 0.511600 	Validation Loss: 0.535504 	In seconds: 125.7206
+Validation loss decreased (0.543532 ---> 0.535504). Saving model.
+Epoch: 13 	Training Loss: 0.482056 	Validation Loss: 0.510915 	In seconds: 125.3534
+Validation loss decreased (0.535504 ---> 0.510915). Saving model.
+Epoch: 14 	Training Loss: 0.446047 	Validation Loss: 0.519001 	In seconds: 125.3101
+Epoch: 15 	Training Loss: 0.418528 	Validation Loss: 0.520839 	In seconds: 125.4970
+Epoch: 16 	Training Loss: 0.385313 	Validation Loss: 0.471098 	In seconds: 125.5117
+Validation loss decreased (0.510915 ---> 0.471098). Saving model.
+Epoch: 17 	Training Loss: 0.367444 	Validation Loss: 0.486753 	In seconds: 127.3213
+Epoch: 18 	Training Loss: 0.342444 	Validation Loss: 0.753047 	In seconds: 125.4376
+Epoch: 19 	Training Loss: 0.319889 	Validation Loss: 0.542514 	In seconds: 128.4324
+Minimum value of learning rate rached (i.e. 0.001)
+Epoch: 20 	Training Loss: 0.296248 	Validation Loss: 0.448661 	In seconds: 125.3668
+Validation loss decreased (0.471098 ---> 0.448661). Saving model.
+Epoch: 21 	Training Loss: 0.268571 	Validation Loss: 0.526396 	In seconds: 125.4749
+Epoch: 22 	Training Loss: 0.255108 	Validation Loss: 0.405015 	In seconds: 125.4407
+Validation loss decreased (0.448661 ---> 0.405015). Saving model.
+Epoch: 23 	Training Loss: 0.234841 	Validation Loss: 0.424977 	In seconds: 125.4918
+Epoch: 24 	Training Loss: 0.226415 	Validation Loss: 0.484211 	In seconds: 125.4563
+Epoch: 25 	Training Loss: 0.203908 	Validation Loss: 0.446822 	In seconds: 125.4676
+Epoch: 26 	Training Loss: 0.193076 	Validation Loss: 0.393628 	In seconds: 125.5574
+Validation loss decreased (0.405015 ---> 0.393628). Saving model.
+Epoch: 27 	Training Loss: 0.182722 	Validation Loss: 0.384715 	In seconds: 125.7095
+Validation loss decreased (0.393628 ---> 0.384715). Saving model.
+Epoch: 28 	Training Loss: 0.167166 	Validation Loss: 0.401307 	In seconds: 125.5514
+Epoch: 29 	Training Loss: 0.155130 	Validation Loss: 0.419929 	In seconds: 125.7579
+Epoch: 30 	Training Loss: 0.144455 	Validation Loss: 0.366002 	In seconds: 125.7302
+Validation loss decreased (0.384715 ---> 0.366002). Saving model.
+Epoch: 31 	Training Loss: 0.136720 	Validation Loss: 0.400575 	In seconds: 125.6025
+Epoch: 32 	Training Loss: 0.125390 	Validation Loss: 0.365040 	In seconds: 125.6485
+Validation loss decreased (0.366002 ---> 0.365040). Saving model.
+Epoch: 33 	Training Loss: 0.114977 	Validation Loss: 0.360350 	In seconds: 125.6242
+Validation loss decreased (0.365040 ---> 0.360350). Saving model.
+Epoch: 34 	Training Loss: 0.104302 	Validation Loss: 0.389308 	In seconds: 125.7300
+Epoch: 35 	Training Loss: 0.096212 	Validation Loss: 0.369566 	In seconds: 125.8192
+Epoch: 36 	Training Loss: 0.090079 	Validation Loss: 0.363593 	In seconds: 125.7262
+Epoch: 37 	Training Loss: 0.084619 	Validation Loss: 0.366114 	In seconds: 125.6174
+Epoch: 38 	Training Loss: 0.080584 	Validation Loss: 0.337767 	In seconds: 125.7019
+Validation loss decreased (0.360350 ---> 0.337767). Saving model.
+Epoch: 39 	Training Loss: 0.075058 	Validation Loss: 0.344756 	In seconds: 125.6509
+Epoch: 40 	Training Loss: 0.071159 	Validation Loss: 0.358257 	In seconds: 125.8050
+Epoch: 41 	Training Loss: 0.066191 	Validation Loss: 0.354133 	In seconds: 125.7002
+Epoch: 42 	Training Loss: 0.060846 	Validation Loss: 0.331236 	In seconds: 125.7986
+Validation loss decreased (0.337767 ---> 0.331236). Saving model.
+Epoch: 43 	Training Loss: 0.055879 	Validation Loss: 0.355754 	In seconds: 125.9482
+Epoch: 44 	Training Loss: 0.053131 	Validation Loss: 0.390703 	In seconds: 125.8759
+Epoch: 45 	Training Loss: 0.050292 	Validation Loss: 0.367190 	In seconds: 125.8707
+Epoch: 46 	Training Loss: 0.045680 	Validation Loss: 0.340821 	In seconds: 125.8092
+Epoch: 47 	Training Loss: 0.044157 	Validation Loss: 0.381200 	In seconds: 125.8192
+Epoch: 48 	Training Loss: 0.042269 	Validation Loss: 0.352111 	In seconds: 125.8531
+Epoch: 49 	Training Loss: 0.040453 	Validation Loss: 0.354842 	In seconds: 125.8047
+Epoch: 50 	Training Loss: 0.035380 	Validation Loss: 0.355971 	In seconds: 125.7947
+3rd. section:
+     Creata a new DenseNet model with the same architecture
+     as the last DenseNet model.
+     Load the best parameters produced during training and
+     evaluate them using a completely new image dataset
+     (i.e. the test dataset)
+Compression factor smaller than 1.0 is exclusive of DenseNet BC.
+Compression factor has been set to 1.0
+Evaluaton of model will take place on CUDA!
+
+Accuracy gotten after training: 0.9056
